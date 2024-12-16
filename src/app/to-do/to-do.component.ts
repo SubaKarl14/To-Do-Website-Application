@@ -21,14 +21,31 @@ export class ToDoComponent implements OnInit {
   done: Task[] = [];
 
   ngOnInit(): void {
-    // Initial tasks, if any
-    this.todo = [
-      // { title: 'History', description: 'Study history', date: 'Dec 14, 2024 6:26 AM' },
-      // { title: 'Math', description: 'Complete assignments', date: 'Dec 16, 2024 1:59 PM' }
-    ];
+    // Load all task categories from localStorage
+    const savedTodos = localStorage.getItem('todoList');
+    const savedInProgress = localStorage.getItem('inProgressList');
+    const savedOnHold = localStorage.getItem('onHoldList');
+    const savedDone = localStorage.getItem('doneList');
+
+    if (savedTodos) {
+      this.todo = JSON.parse(savedTodos);
+    }
+
+    if (savedInProgress) {
+      this.inProgress = JSON.parse(savedInProgress);
+    }
+
+    if (savedOnHold) {
+      this.onHold = JSON.parse(savedOnHold);
+    }
+
+    if (savedDone) {
+      this.done = JSON.parse(savedDone);
+    }
   }
 
   drop(event: CdkDragDrop<Task[]>) {
+    // Handle item movement across categories
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -39,6 +56,9 @@ export class ToDoComponent implements OnInit {
         event.currentIndex
       );
     }
+
+    // Save all categories to localStorage after any change
+    this.saveToLocalStorage();
   }
 
   constructor(private dialog: MatDialog) {}
@@ -50,11 +70,18 @@ export class ToDoComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);  // Check if the result contains the correct data
       if (result) {
-        this.todo.push(result);
+        this.todo.push(result);  // Add the new task to the todo list
+        this.saveToLocalStorage();  // Save all categories to localStorage
       }
     });
-    
+  }
+
+  // Save all task categories to localStorage
+  saveToLocalStorage(): void {
+    localStorage.setItem('todoList', JSON.stringify(this.todo));
+    localStorage.setItem('inProgressList', JSON.stringify(this.inProgress));
+    localStorage.setItem('onHoldList', JSON.stringify(this.onHold));
+    localStorage.setItem('doneList', JSON.stringify(this.done));
   }
 }
