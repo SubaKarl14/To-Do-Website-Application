@@ -1,0 +1,30 @@
+.background{
+    height: 100vh;
+    background-color: #030303;
+    color: #d2d3d3;
+}
+
+.text-center h1{
+    font-size: 3rem;
+}
+
+.text-center p {
+    font-size: 1.2rem;
+    margin-top: 15px;
+    width: 1000px;
+}
+
+.text-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #444444;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}

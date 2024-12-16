@@ -1,0 +1,23 @@
+.header{
+    width: 100%;
+    position: fixed;
+    background-color: #030303;
+    border-bottom: 1px solid rgb(119, 119, 119);
+}
+.navbar {
+    margin: auto;
+    width: 80%;
+    color: white;
+}
+
+.header .navbar, 
+.header .navbar-nav .nav-link, 
+.header .navbar-brand, 
+.header .btn {
+    color: white; /* Make font color white */
+}
+
+.header .navbar-nav .nav-link:hover {
+    color: #ccc; /* Optional: Change color on hover */
+}
+

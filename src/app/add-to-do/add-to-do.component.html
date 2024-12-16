@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Add New To-Do</h2>
+<div mat-dialog-content>
+  <!-- To-Do Title Input -->
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>To-Do Title</mat-label>
+    <input matInput [(ngModel)]="todoTitle" name="todoTitle" required #todoTitleInput="ngModel" />
+  </mat-form-field>
+
+  <!-- To-Do Description Input -->
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>To-Do Description</mat-label>
+    <textarea matInput [(ngModel)]="todoDescription" name="todoDescription" required #todoDescriptionInput="ngModel"></textarea>
+  </mat-form-field>
+
+  <!-- Current Date and Time Display -->
+  <div style="margin-top: 10px;">
+    <label>Current Date and Time:</label>
+    <p>{{ currentDateTime }}</p>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <!-- Disable the Add button if title or description is invalid -->
+  <button mat-raised-button color="primary" (click)="onAddTodo()" [disabled]="!todoTitleInput.valid || !todoDescriptionInput.valid">Add</button>
+</div>
