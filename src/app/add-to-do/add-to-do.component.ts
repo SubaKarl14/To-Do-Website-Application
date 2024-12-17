@@ -11,7 +11,7 @@ import { EventEmitter, Output } from '@angular/core';
 export class AddToDoComponent {
   todoTitle: string = '';
   todoDescription: string = '';
-  currentDateTime: string = new Date().toLocaleString(); // Set the current date and time
+  currentDateTime: string = new Date().toLocaleString(); 
 
   constructor(public dialogRef: MatDialogRef<AddToDoComponent>) {
     const now = new Date();
@@ -22,7 +22,10 @@ export class AddToDoComponent {
   // onAddTodo(): void {
   //   this.dialogRef.close(this.todoTitle);
   // }
-  @Output() addTodo = new EventEmitter<{ title: string, description: string, date: string }>();
+  
+// EventEmitter that emits an event when a new todo is added. The emitted object includes the title, description, and date of the todo item.
+@Output() addTodo = new EventEmitter<{ title: string, description: string, date: string }>();
+
 
   onAddTodo() {
     if (this.todoTitle && this.todoDescription) {

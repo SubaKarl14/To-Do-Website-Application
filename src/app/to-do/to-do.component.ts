@@ -21,7 +21,6 @@ export class ToDoComponent implements OnInit {
   done: Task[] = [];
 
   ngOnInit(): void {
-    // Load all task categories from localStorage
     const savedTodos = localStorage.getItem('todoList');
     const savedInProgress = localStorage.getItem('inProgressList');
     const savedOnHold = localStorage.getItem('onHoldList');
@@ -30,22 +29,18 @@ export class ToDoComponent implements OnInit {
     if (savedTodos) {
       this.todo = JSON.parse(savedTodos);
     }
-
     if (savedInProgress) {
       this.inProgress = JSON.parse(savedInProgress);
     }
-
     if (savedOnHold) {
       this.onHold = JSON.parse(savedOnHold);
     }
-
     if (savedDone) {
       this.done = JSON.parse(savedDone);
     }
   }
 
   drop(event: CdkDragDrop<Task[]>) {
-    // Handle item movement across categories
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -56,9 +51,7 @@ export class ToDoComponent implements OnInit {
         event.currentIndex
       );
     }
-
-    // Save all categories to localStorage after any change
-    this.saveToLocalStorage();
+    this.saveToLocalStorage(); // Save after moving tasks
   }
 
   constructor(private dialog: MatDialog) {}
@@ -75,6 +68,25 @@ export class ToDoComponent implements OnInit {
         this.saveToLocalStorage();  // Save all categories to localStorage
       }
     });
+  }
+
+  // Remove a task from the specified list
+  removeTask(task: Task, category: string): void {
+    switch (category) {
+      case 'todo':
+        this.todo = this.todo.filter(t => t !== task);
+        break;
+      case 'inProgress':
+        this.inProgress = this.inProgress.filter(t => t !== task);
+        break;
+      case 'onHold':
+        this.onHold = this.onHold.filter(t => t !== task);
+        break;
+      case 'done':
+        this.done = this.done.filter(t => t !== task);
+        break;
+    }
+    this.saveToLocalStorage();  // Save after removing task
   }
 
   // Save all task categories to localStorage

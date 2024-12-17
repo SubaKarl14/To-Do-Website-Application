@@ -5,7 +5,8 @@
 }
 
 .text-center h1{
-    font-size: 3rem;
+    font-size: 1.5rem;
+    width: 600px
 }
 
 .text-center p {

@@ -46,7 +46,7 @@
   }
   
   .example-box {
-    padding: 20px 10px;
+    padding: 10px 5px 10px 10px;
     border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
@@ -82,4 +82,31 @@
   
   .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .todo-list {
+    position: relative;
+  }
+  
+  .remove-btn {
+    visibility: hidden;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    flex: hidden;
+    border-radius: 100%;
+  }
+  .remove-btn img {
+    height: 25px;
+  }
+
+  .example-box div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .example-box:hover .remove-btn{
+    visibility: visible;
+    
   }

@@ -18,6 +18,13 @@
 }
 
 .header .navbar-nav .nav-link:hover {
-    color: #ccc; /* Optional: Change color on hover */
+    color: #ccc; 
 }
 
+
+.nav-link.active {
+    
+    color: white;
+    border-bottom: 1px solid rgb(155, 155, 155);
+  }
+  
