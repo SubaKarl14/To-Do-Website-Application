@@ -17,6 +17,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +27,7 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     ToDoComponent,
     InfoModalComponent,
-    AddToDoComponent
+    AddToDoComponent,
     
   ],
   imports: [

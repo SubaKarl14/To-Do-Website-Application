@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { AddToDoComponent } from '../add-to-do/add-to-do.component';
+import Swal from 'sweetalert2';
 
 interface Task {
   title: string;
@@ -70,23 +71,56 @@ export class ToDoComponent implements OnInit {
     });
   }
 
-  // Remove a task from the specified list
+  // Remove a task from the specified list with SweetAlert confirmation
   removeTask(task: Task, category: string): void {
-    switch (category) {
-      case 'todo':
-        this.todo = this.todo.filter(t => t !== task);
-        break;
-      case 'inProgress':
-        this.inProgress = this.inProgress.filter(t => t !== task);
-        break;
-      case 'onHold':
-        this.onHold = this.onHold.filter(t => t !== task);
-        break;
-      case 'done':
-        this.done = this.done.filter(t => t !== task);
-        break;
-    }
-    this.saveToLocalStorage();  // Save after removing task
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+      },
+      buttonsStyling: false
+    });
+
+    swalWithBootstrapButtons.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Proceed with the removal
+        switch (category) {
+          case 'todo':
+            this.todo = this.todo.filter(t => t !== task);
+            break;
+          case 'inProgress':
+            this.inProgress = this.inProgress.filter(t => t !== task);
+            break;
+          case 'onHold':
+            this.onHold = this.onHold.filter(t => t !== task);
+            break;
+          case 'done':
+            this.done = this.done.filter(t => t !== task);
+            break;
+        }
+        this.saveToLocalStorage();  // Save after removing task
+
+        swalWithBootstrapButtons.fire({
+          title: "Deleted!",
+          text: "Your task has been deleted.",
+          icon: "success"
+        });
+      // } else if (result.dismiss === Swal.DismissReason.cancel) {
+      //   swalWithBootstrapButtons.fire({
+      //     title: "Cancelled",
+      //     text: "Your task is safe :)",
+      //     icon: "error"
+      //   });
+      }
+    });
   }
 
   // Save all task categories to localStorage
